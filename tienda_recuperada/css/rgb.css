@@ -1,0 +1,46 @@
+/* EFECTOS RGB (estilo gamer cálido).
+   Para quitar las luces y dejar solo los colores: borra la línea <link ... rgb.css> de index.html.
+   Para cambiar los colores de las luces: edita --rgb1, --rgb2, --rgb3. */
+@property --ang{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes giro{to{--ang:360deg}}
+@keyframes flujo{to{background-position:300% 0}}
+:root{--rgb1:#22d3ee;--rgb2:#8b5cf6;--rgb3:#ffcf4a;--rgb:conic-gradient(from var(--ang),var(--rgb1),var(--rgb2),var(--rgb3),var(--rgb1));--flujo:linear-gradient(90deg,var(--rgb1),var(--rgb2),var(--rgb3),var(--rgb1))}
+
+body{background:radial-gradient(900px 520px at 8% -8%,rgba(34,211,238,.18),transparent 70%),radial-gradient(800px 520px at 100% 0,rgba(139,92,246,.13),transparent 70%),var(--bg);background-attachment:fixed}
+
+/* Línea RGB bajo el encabezado y logo con degradado animado */
+header{position:sticky}
+header::after{content:"";display:block;height:2px;background:var(--flujo);background-size:300% 100%;animation:flujo 7s linear infinite}
+.logo{background:var(--flujo);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flujo 7s linear infinite;text-transform:uppercase;font-size:1.4rem}
+.logo img{filter:drop-shadow(0 0 6px rgba(34,211,238,.6))}
+
+/* Borde RGB giratorio (portada; en tarjetas aparece al pasar el cursor) */
+.hero,.card{position:relative}
+.hero::before,.card::before{content:"";position:absolute;inset:0;padding:2px;border-radius:inherit;background:var(--rgb);animation:giro 5s linear infinite;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.card::before{opacity:0;transition:opacity .25s;z-index:2}
+.card:hover::before,.card:focus-within::before{opacity:1}
+.card{transition:transform .2s,box-shadow .25s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(34,211,238,.22)}
+.hero{border:0;box-shadow:0 0 34px rgba(34,211,238,.16)}
+.hero h1{background:var(--flujo);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flujo 8s linear infinite;text-transform:uppercase}
+
+/* Botones y etiquetas con brillo */
+.btn.primary{box-shadow:0 0 14px rgba(34,211,238,.45);font-weight:700}
+.btn.primary:hover{box-shadow:0 0 22px rgba(34,211,238,.75);filter:none}
+.btn:not(.primary):hover{box-shadow:0 0 10px rgba(34,211,238,.3)}
+.chip[aria-pressed="true"]{background:linear-gradient(90deg,#f24a2e,#8b5cf6);border-color:transparent;color:#fff;box-shadow:0 0 12px rgba(139,92,246,.4)}
+.badge{background:linear-gradient(90deg,#f24a2e,#8b5cf6);box-shadow:0 0 10px rgba(139,92,246,.5)}
+.badge.virt{background:rgba(20,12,9,.85);border:1px solid var(--rgb3);color:var(--rgb3)}
+.price b.o{text-shadow:0 0 10px rgba(255,207,74,.45)}
+.tag.off{box-shadow:0 0 8px rgba(255,207,74,.3)}
+.addcard:hover{box-shadow:0 0 18px rgba(34,211,238,.3)}
+
+/* Foco y ventanas */
+input:focus,select:focus,textarea:focus,:focus-visible{outline:2px solid var(--accent);box-shadow:0 0 0 4px rgba(34,211,238,.22)}
+dialog{border:1px solid var(--rgb1);box-shadow:0 0 40px rgba(34,211,238,.25)}
+dialog::backdrop{background:rgba(10,5,3,.72);backdrop-filter:blur(3px)}
+.stat{border-color:var(--line);box-shadow:inset 0 0 0 1px rgba(34,211,238,.06)}
+.stat b{color:var(--rgb3)}
+footer{border-top:1px solid var(--line)}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}

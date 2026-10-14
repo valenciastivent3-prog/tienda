@@ -1,0 +1,18 @@
+TIENDA COMPLETA - versión con puntos por ID de Free Fire
+=========================================================
+Esta carpeta es TODA la tienda (index.html, admin.html, css, js, supabase) con los cambios incluidos.
+No incluye la carpeta .git: tu repositorio sigue siendo el de C:\Users\stive\Music\tienda.
+
+ORDEN PARA PONERLA EN MARCHA
+1) Haz una copia de seguridad de tu carpeta actual (por ejemplo, comprímela en un ZIP).
+2) Copia el contenido de esta carpeta ENCIMA de tu carpeta tienda (acepta reemplazar).
+3) Supabase > Database > Backups: asegúrate de tener un respaldo.
+4) Supabase > SQL Editor: abre supabase/schema_3_puntos_ff.sql, pégalo COMPLETO y pulsa Run.
+   (Si dice que hay filas guardadas por celular, avísame antes de seguir.)
+5) Ejecuta supabase/verificacion_schema_3.sql, bloque por bloque, y compara con lo esperado.
+6) Abre admin.html > "Puntos y ruleta": deja las probabilidades sumando 100 % y guarda.
+7) Prueba en la tienda: "Mis puntos" con un ID de prueba.
+8) Solo cuando todo funcione: git add / commit / push (sin --force).
+
+OPCIONAL: limpiar_respaldos.ps1 mueve (no borra) los 24 respaldos viejos de js\ a respaldos\.
+          Primero ejecútalo sin parámetros (simulación) y luego con -Aplicar.

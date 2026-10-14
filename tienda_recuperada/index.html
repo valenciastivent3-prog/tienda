@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mi Tienda</title>
+<!-- Seguridad: solo se ejecutan scripts de esta misma carpeta (bloquea cualquier código inyectado) y solo se conecta a tu Supabase.
+     Si algún día usas otro servicio (analytics, chat...), hay que agregarlo aquí. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/store.css">
+<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/rgb.css">
+<link rel="stylesheet" href="css/motion.css">
+<link rel="stylesheet" href="css/hud.css">
+<link rel="stylesheet" href="css/shop.css">
+<link rel="stylesheet" href="css/perfil.css">
+<link rel="stylesheet" href="css/final.css">
+</head>
+<body>
+<a class="skip" href="#app">Saltar al contenido</a>
+<div id="boot" aria-hidden="true"><b>STORE</b><u></u><span>INITIALIZING...</span></div>
+<header><div class="wrap top" id="topbar"></div></header>
+<main class="wrap"><section id="panel"></section><div id="app"></div></main>
+<footer><div class="wrap"><span id="fname"></span><button id="cookielink">Cookies</button></div></footer>
+<dialog id="dlg"><div class="box" id="dbox"></div></dialog>
+
+
+<script src="js/config.js"></script>
+<script src="js/textos.js"></script>
+<script src="data/datos.js"></script>
+<script src="js/core.js"></script>
+<script src="js/backend.js"></script>
+<script src="js/cookies.js"></script>
+<script src="js/puntos.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/recibo.js"></script>
+<script src="js/store.js"></script>
+<script src="js/hud.js"></script>
+<script src="js/shop.js"></script>
+<script src="js/perfil.js"></script>
+<script src="js/main.js"></script>
+<script src="js/motion.js"></script>
+<script src="js/final.js"></script>
+</body>
+</html>

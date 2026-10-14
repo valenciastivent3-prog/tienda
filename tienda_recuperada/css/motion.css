@@ -1,0 +1,89 @@
+/* MOVIMIENTO Y RECIBO. Para quitar todas las animaciones: borra la línea <link ... motion.css> en index.html y admin.html. */
+@keyframes rise{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes rowIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:translateY(20px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,26px)}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes burst{0%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r))}}
+@keyframes rip{to{transform:scale(1);opacity:0}}
+@keyframes bump{40%{transform:scale(1.18) rotate(-4deg)}70%{transform:scale(.96)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,207,74,.5)}50%{box-shadow:0 0 0 6px rgba(255,207,74,0)}}
+
+/* Entrada escalonada de tarjetas, pedidos y estadísticas (la pone js/motion.js) */
+.enter:not(.vis){opacity:0}
+.enter.vis{animation:rise .55s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0)*60ms)}
+
+/* Portada: luz flotante y parallax */
+.hero{overflow:hidden}
+.hero>*{position:relative;z-index:1}
+.hero::after{content:"";position:absolute;right:-90px;top:-130px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.38),transparent 65%);filter:blur(8px);translate:0 var(--sy,0px);animation:drift 9s ease-in-out infinite;pointer-events:none}
+
+/* Tarjetas: foco de luz que sigue el cursor y zoom de la foto */
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(34,211,238,.18),transparent 60%);opacity:0;transition:opacity .25s;pointer-events:none;z-index:1}
+.card:hover::after{opacity:1}
+.pic{overflow:hidden}
+.pic img{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.card:hover .pic img{transform:scale(1.08)}
+.stat{transition:transform .2s,border-color .2s}.stat:hover{transform:translateY(-2px);border-color:var(--accent)}
+.chip{transition:transform .15s,background .2s,box-shadow .2s}.chip:hover{transform:translateY(-1px)}
+
+/* Encabezado que se vuelve cristal al bajar */
+header{transition:background .25s,box-shadow .25s}
+header.scrolled{background:rgba(11,16,32,.78);backdrop-filter:blur(12px);box-shadow:0 6px 24px rgba(0,0,0,.35)}
+
+/* Botones: onda al tocar, bolita que vuela al carrito, rebote */
+.btn,.chip,.paytile{position:relative;overflow:hidden}
+.btn:active{transform:scale(.96)}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:rip .6s ease-out forwards;pointer-events:none}
+.fly{position:fixed;z-index:60;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#22d3ee,#8b5cf6);box-shadow:0 0 14px rgba(34,211,238,.9);pointer-events:none}
+.bump{animation:bump .45s}
+
+/* Ventanas: aparecen con rebote; cada paso del pago entra en cascada */
+dialog[open]{animation:pop .3s cubic-bezier(.2,.8,.2,1)}
+dialog[open]::backdrop{animation:fade .3s}
+#dbox.swap>*{animation:rowIn .4s ease backwards}
+#dbox.swap>:nth-child(2){animation-delay:.04s}#dbox.swap>:nth-child(3){animation-delay:.08s}#dbox.swap>:nth-child(4){animation-delay:.12s}#dbox.swap>:nth-child(5){animation-delay:.16s}#dbox.swap>:nth-child(n+6){animation-delay:.2s}
+
+/* ===== RECIBO / PEDIDO EN TABLA ===== */
+.rc{border:1px solid var(--line);border-radius:16px;background:var(--bg);overflow:hidden;text-align:left}
+.rc-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 14px;background:linear-gradient(90deg,rgba(34,211,238,.18),rgba(139,92,246,.1));border-bottom:1px solid var(--line)}
+.rc-k{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.rc-n{font-family:"Rajdhani",system-ui,sans-serif;font-size:1.3rem;letter-spacing:.04em}
+.rc-date{font-size:.82rem;color:var(--muted)}
+.rc-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+.rc-info>div{background:var(--bg);padding:8px 12px;display:grid;gap:2px}
+.rc-info span{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+.rc-info b{font-weight:600;word-break:break-word}
+.rc-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.rc .rc-scroll{border:0;border-radius:0}
+.rc-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.92rem}
+.rc-t th,.rc-t td{padding:9px 12px;border:1px solid var(--line);vertical-align:middle}
+.rc-t tr>:first-child{border-left:0}.rc-t tr>:last-child{border-right:0}
+.rc-t thead tr:first-child>*{border-top:0}.rc-t tfoot tr:last-child>*{border-bottom:0}
+.rc-t thead th{background:var(--surface);color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;text-align:left}
+.rc-t .n{text-align:right;white-space:nowrap}
+.rc-t th:nth-child(2),.rc-t td:nth-child(2){width:66px;text-align:center}
+.rc-t tbody tr:nth-child(even){background:rgba(255,255,255,.03)}
+.rc-t tbody tr{transition:background .2s}.rc-t tbody tr:hover{background:rgba(34,211,238,.1)}
+.rc-q{display:inline-block;min-width:28px;padding:1px 8px;border-radius:99px;background:var(--surface);border:1px solid var(--line);font-weight:700;text-align:center}
+.rc-t tfoot td{background:var(--surface);color:var(--muted)}
+.rc-t tfoot .n{color:var(--text)}.rc-dc .n{color:var(--offer)}
+.rc-tot td{font-size:1.05rem;color:var(--text);font-weight:700}
+.rc-tot .n b{color:var(--offer);font-size:1.25rem;text-shadow:0 0 10px rgba(255,207,74,.4)}
+#dbox.swap .rc-t tbody tr{animation:rowIn .45s ease backwards;animation-delay:calc(.3s + var(--i,0)*80ms)}
+.row.order .rc-scroll{margin:2px 0}
+.tag.st-pendiente{animation:pulse 2s infinite}
+.tag.st-pagado{color:#2dbd85;border-color:#2dbd85}
+.tag.st-entregado{color:#3b82f6;border-color:#3b82f6}
+.tag.st-cancelado{color:var(--danger);border-color:var(--danger)}
+
+/* Check animado con confeti */
+.okwrap{position:relative;display:grid;place-items:center;height:84px}
+.okcheck{width:68px;height:68px;overflow:visible}
+.okcheck circle{fill:none;stroke:#8b5cf6;stroke-width:3;stroke-dasharray:152;stroke-dashoffset:152;animation:draw .7s ease forwards;filter:drop-shadow(0 0 6px rgba(139,92,246,.7))}
+.okcheck path{fill:none;stroke:#ffcf4a;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .5s .55s ease forwards}
+.confetti i{position:absolute;left:50%;top:50%;width:8px;height:12px;border-radius:2px;opacity:0;animation:burst 1.3s var(--d) ease-out forwards}
+
+@media (max-width:480px){.rc-t th,.rc-t td{padding:7px 8px;font-size:.84rem}.rc-t th:nth-child(2),.rc-t td:nth-child(2){width:48px}}
+@media (prefers-reduced-motion:reduce){.okcheck circle,.okcheck path{stroke-dashoffset:0!important}.enter:not(.vis){opacity:1}}

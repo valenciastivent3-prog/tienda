@@ -1,0 +1,23 @@
+/* Administración: panel, listas, tablas y formularios */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.stat b{display:block;font-size:1.4rem}
+.list{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.row{display:grid;grid-template-columns:56px 1fr auto auto;gap:14px;align-items:center;padding:12px 14px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.thumb{width:56px;height:56px;border-radius:8px;background:var(--bg);border:1px solid var(--line);object-fit:cover;display:grid;place-items:center;color:var(--muted);font-size:.72rem}
+.tag{font-size:.75rem;border:1px solid var(--line);border-radius:99px;padding:1px 8px;margin-left:6px;color:var(--muted)}
+.tag.off{color:var(--offer);border-color:var(--offer)}
+.acts{display:flex;gap:6px}
+.tools{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.tools input{flex:1;min-width:160px}.tools select{width:auto}
+.imgrow{display:flex;gap:12px;align-items:center}
+@media (max-width:640px){.row{grid-template-columns:48px 1fr}.row .price,.row .acts{grid-column:2}.two{grid-template-columns:1fr}}
+#panel{margin-bottom:24px}
+#panel .tabs{align-items:center}
+.row.order{grid-template-columns:1fr;gap:8px}
+.cuenta{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:6px 10px}
+.comp{max-height:90px;border-radius:10px;border:1px solid var(--line);cursor:zoom-in;justify-self:start}
+.comp.big{max-height:none;max-width:100%;cursor:zoom-out}
+.msg{padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);margin-bottom:14px}
+.msg.err{color:var(--danger)}

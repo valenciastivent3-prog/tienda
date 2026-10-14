@@ -1,0 +1,81 @@
+/* FASE 4 · ACCESIBILIDAD, RENDIMIENTO Y CURSOR OPCIONAL. Para quitarlo: borra css/final.css y js/final.js de index.html. */
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;box-shadow:0 0 0 5px rgba(34,211,238,.18)}
+.skip{position:fixed;left:12px;top:-70px;z-index:1000;padding:10px 16px;border-radius:10px;background:var(--accent);color:#031018;font-weight:800;transition:top .2s}
+.skip:focus{top:12px}
+/* equipos modestos (4 núcleos o menos / 2 GB): quita lo más pesado, la tienda se ve igual de bien */
+.lite header.scrolled,.lite .toast,.lite dialog::backdrop{backdrop-filter:none;-webkit-backdrop-filter:none}
+.lite #hud-grid,.lite .hero-x>.core,.lite .hero-x>.scan,.lite .hero::after{display:none}
+/* pausa las animaciones del hero cuando no se ve */
+.hero-x.off *,.hero-x.off::after{animation-play-state:paused!important}
+/* cursor personalizado (solo PC, se puede apagar con el botón ◎) */
+html.cur-on,html.cur-on *{cursor:none!important}
+html.cur-on input,html.cur-on textarea{cursor:text!important}
+#cur-dot,#cur-ring{position:fixed;left:0;top:0;pointer-events:none;z-index:1000;border-radius:50%}
+#cur-dot{width:6px;height:6px;margin:-3px;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+#cur-ring{width:36px;height:36px;margin:-18px;border:1.5px solid rgba(34,211,238,.6);transition:width .25s,height .25s,margin .25s,background .25s,border-color .25s}
+#cur-ring.hot{width:54px;height:54px;margin:-27px;background:rgba(34,211,238,.12);border-color:var(--accent2)}
+html:not(.cur-on) #cur-dot,html:not(.cur-on) #cur-ring{opacity:0}
+#cur-tg{position:fixed;left:12px;bottom:12px;z-index:150;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:rgba(11,16,32,.8);color:var(--accent);font-size:1.1rem;cursor:pointer}
+#cur-tg[aria-pressed=false]{color:var(--muted);opacity:.7}
+@media (max-width:760px),(hover:none){#cur-tg,#cur-dot,#cur-ring{display:none}}
+
+/* FIX_LAYOUT_SECCIONES_GAMING_V1 */
+/* Cuadriculas para destacados y ofertas, sin alterar el catalogo principal */
+.fx-sec {
+    width: 100%;
+    min-width: 0;
+}
+
+.fx-feat,
+.fx-offers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 18px;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+}
+
+.fx-feat > .card,
+.fx-offers > .card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.fx-feat .pic,
+.fx-offers .pic {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    flex: 0 0 auto;
+}
+
+.fx-feat .pic img,
+.fx-offers .pic img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 520px) {
+    .fx-feat,
+    .fx-offers {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .fx-feat .info,
+    .fx-offers .info {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 340px) {
+    .fx-feat,
+    .fx-offers {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

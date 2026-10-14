@@ -1,0 +1,190 @@
+/* ==========================================================
+FASE 3 — PRODUCTOS 3D AVANZADOS · NEXUS GAMING STORE
+Añadir al final de css/shop.css
+Conserva los estilos HUD existentes.
+========================================================== */
+
+/* Entrada cinematográfica escalonada */
+.card.product-card-3d:not(.addcard) {
+position: relative;
+isolation: isolate;
+overflow: hidden;
+transform-style: preserve-3d;
+backface-visibility: hidden;
+animation: product3DEnter .7s cubic-bezier(.2,.8,.2,1) both;
+transition:
+transform .35s cubic-bezier(.2,.8,.2,1),
+border-color .3s ease,
+box-shadow .35s ease,
+filter .3s ease;
+}
+
+.card.product-card-3d:nth-child(2) { animation-delay: .06s; }
+.card.product-card-3d:nth-child(3) { animation-delay: .12s; }
+.card.product-card-3d:nth-child(4) { animation-delay: .18s; }
+.card.product-card-3d:nth-child(5) { animation-delay: .24s; }
+.card.product-card-3d:nth-child(6) { animation-delay: .30s; }
+
+@keyframes product3DEnter {
+from {
+opacity: 0;
+translate: 0 28px;
+scale: .96;
+filter: blur(5px);
+}
+to {
+opacity: 1;
+translate: 0 0;
+scale: 1;
+filter: blur(0);
+}
+}
+
+/* Reflejo neón que recorre cada tarjeta */
+.card.product-card-3d:not(.addcard)::after {
+content: "";
+position: absolute;
+inset: -80% -60%;
+z-index: 3;
+pointer-events: none;
+opacity: 0;
+background: linear-gradient(
+115deg,
+transparent 42%,
+rgba(255,255,255,.035) 46%,
+rgba(34,211,238,.18) 49%,
+rgba(255,255,255,.13) 51%,
+transparent 57%
+);
+transform: translateX(-55%) rotate(8deg);
+transition: transform .8s cubic-bezier(.2,.8,.2,1), opacity .3s;
+}
+
+.card.product-card-3d:not(.addcard):hover::after {
+opacity: 1;
+transform: translateX(55%) rotate(8deg);
+}
+
+/* Levantamiento 3D con iluminación dinámica */
+.card.product-card-3d:not(.addcard):hover {
+transform:
+perspective(1000px)
+translateY(-9px)
+rotateX(var(--rx, 0deg))
+rotateY(var(--ry, 0deg))
+scale(1.015);
+border-color: var(--rar, var(--accent));
+box-shadow:
+0 22px 50px rgba(0,0,0,.5),
+0 0 0 1px color-mix(in srgb, var(--rar, var(--accent)) 45%, transparent),
+0 0 28px color-mix(in srgb, var(--rar, var(--accent)) 30%, transparent);
+}
+
+/* Imagen con profundidad */
+.card.product-card-3d:not(.addcard) .pic {
+overflow: hidden;
+transform: translateZ(10px);
+}
+
+.card.product-card-3d:not(.addcard) .pic img {
+transition:
+transform .65s cubic-bezier(.2,.8,.2,1),
+filter .4s ease;
+will-change: transform;
+}
+
+.card.product-card-3d:not(.addcard):hover .pic img {
+transform:
+translate3d(
+calc(var(--px, 0) * 10px),
+calc(var(--py, 0) * 10px),
+18px
+)
+scale(1.09);
+filter: saturate(1.2) contrast(1.04);
+}
+
+/* Información que se separa ligeramente del fondo */
+.card.product-card-3d:not(.addcard) .info {
+transform: translateZ(18px);
+transition: transform .35s ease;
+}
+
+.card.product-card-3d:not(.addcard):hover .info {
+transform: translateZ(25px);
+}
+
+/* Precio con brillo */
+.card.product-card-3d:not(.addcard) .price b {
+transition: text-shadow .3s ease, color .3s ease;
+}
+
+.card.product-card-3d:not(.addcard):hover .price b {
+color: var(--accent);
+text-shadow:
+0 0 8px color-mix(in srgb, var(--accent) 65%, transparent),
+0 0 22px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+/* Botones interactivos */
+.card.product-card-3d:not(.addcard) .btn {
+transition:
+transform .2s ease,
+box-shadow .3s ease,
+filter .3s ease;
+}
+
+.card.product-card-3d:not(.addcard) .btn.primary:not(:disabled):hover {
+transform: translateY(-2px) scale(1.025);
+box-shadow:
+0 5px 20px rgba(34,211,238,.25),
+0 0 18px rgba(34,211,238,.3);
+filter: brightness(1.12);
+}
+
+.card.product-card-3d:not(.addcard) .btn.primary:not(:disabled):active {
+transform: scale(.97);
+}
+
+/* Animación sutil para las etiquetas */
+.card.product-card-3d .badge {
+transition: transform .3s ease, filter .3s ease;
+}
+
+.card.product-card-3d:hover .badge {
+transform: translateZ(20px) scale(1.04);
+filter: brightness(1.1);
+}
+
+/* Móviles: conservar fluidez y evitar efectos exagerados */
+@media (max-width: 760px) {
+.card.product-card-3d:not(.addcard):hover {
+transform: translateY(-3px);
+}
+
+.card.product-card-3d:not(.addcard):hover .pic img {
+transform: scale(1.04);
+}
+
+.card.product-card-3d:not(.addcard)::after {
+display: none;
+}
+}
+
+/* Accesibilidad: respetar la preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+.card.product-card-3d:not(.addcard) {
+animation: none !important;
+transition: none !important;
+}
+
+.card.product-card-3d:not(.addcard)::after {
+display: none;
+}
+
+.card.product-card-3d:not(.addcard):hover,
+.card.product-card-3d:not(.addcard):hover .pic img,
+.card.product-card-3d:not(.addcard):hover .info {
+transform: none !important;
+}
+}
